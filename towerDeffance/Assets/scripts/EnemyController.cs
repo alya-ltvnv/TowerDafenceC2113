@@ -7,12 +7,18 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private List<GameObject> waypoints; // Список точек для перемещения
     [SerializeField] private float moveSpeed = 3f; // Скорость перемещения
     [SerializeField] private float reachThreshold = 0.1f; // Расстояние, на котором точка считается достигнутой
+    [SerializeField] private float health = 100;
 
     private int currentWaypointIndex = 0;
     private bool isMoving = true;
 
     void Update()
     {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+
         if (!isMoving || waypoints.Count == 0) return;
 
         // Получаем текущую целевую точку
@@ -40,5 +46,10 @@ public class EnemyController : MonoBehaviour
     public void SetMovement(bool shouldMove)
     {
         isMoving = shouldMove;
+    }
+
+    public void GetDamage(float damage)
+    {
+        health -= damage;
     }
 }
