@@ -11,12 +11,19 @@ public class EnemyController : MonoBehaviour
 
     private int currentWaypointIndex = 0;
     private bool isMoving = true;
+    private Animator _animator;
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
-        if (health <= 0)
+        if (health <= 0 && isMoving)
         {
-            Destroy(gameObject);
+            _animator.SetBool("death", true);
+            isMoving = false;
         }
 
         if (!isMoving || waypoints.Count == 0) return;
@@ -50,6 +57,10 @@ public class EnemyController : MonoBehaviour
 
     public void GetDamage(float damage)
     {
-        health -= damage;
+        if (isMoving)
+        {
+            health -= damage;
+            _animator.SetTrigger("heart");
+        }
     }
 }
