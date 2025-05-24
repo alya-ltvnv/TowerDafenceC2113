@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private int _enemyCount = 5;
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private float _spawnDelay;
+   
 
     private int _spawnCount = 0;
 
@@ -26,4 +27,14 @@ public class EnemySpawner : MonoBehaviour
 
         GameObject newEnemy = Instantiate(_enemyPrefab, transform.position, transform.rotation);
     }
+
+    public float GetSpawnCount()
+    {
+        return _spawnCount;
+    }
+    public float GetAllSpawnCount()
+    {
+        return _enemyCount;
+    }
+
 }
